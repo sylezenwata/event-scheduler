@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Schedules | Event-Scheduler</title>
+        <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png">
+		<link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+		<link rel="manifest" href="/assets/img/favicons/manifest.json">
+		<meta name="msapplication-TileImage" content="/assets/img/favicons/mstile-150x150.png">
+		<meta name="theme-color" content="#ffffff">
+        <link rel="stylesheet" href="/static/schedule.chunk.css" />
+        <!-- <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"> -->
+		<noscript>
+			<div class="no-script">
+				<p>
+					You appear to be using an outdated browser, or javascript is
+					disabled in your browser. Please upgrade to a modern browser or
+					enable javascript and refresh page.
+				</p>
+			</div>
+		</noscript>
+	</head>
+	<body>
+		<section>
+			<div class="content">
+				<%- include('./partials/nav.ejs'); %>
+				<%- include('./partials/sidebar.ejs'); %>
+				<section id="main-con">
+                    <div class="main-con__wrap flex flex-col p-lr-10">
+                        <div class="main-con__head"></div>
+                        <div class="main-con__content position-r">
+							<div id="scheduleFilter" class="box-hol flex-wrap" style="padding: 5px 10px;">
+								<div class="box b-rad-5" style="margin-top: 5px; padding: 5px 0;">
+									<form id="scheduleFilterForm" action="/schedule/filter" method="GET" class="flex align-c justify-c">
+										<input type="text" name="q" class="form-input" style="border: none; font-size: 14px; height: 30px; padding-left: 0;" placeholder="Filter by Event Name, Location or Date" autocomplete="off" required>
+										<button type="submit" class="btn primary icon stroke-light">
+											<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+												<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+												<circle cx="10" cy="10" r="7" />
+												<line x1="21" y1="21" x2="15" y2="15" />
+											</svg>
+										</button>
+									</form>
+								</div>
+								<div class="btn-wrap" style="margin-top: 5px;">
+									<button id="newSchedule" class="btn primary text-cap flex align-c" style="padding: 5px 20px; border-radius: 20px;">
+										<span class="icon stroke-light">
+											<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+												<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+												<rect x="4" y="5" width="16" height="16" rx="2" />
+												<line x1="16" y1="3" x2="16" y2="7" />
+												<line x1="8" y1="3" x2="8" y2="7" />
+												<line x1="4" y1="11" x2="20" y2="11" />
+												<line x1="10" y1="16" x2="14" y2="16" />
+												<line x1="12" y1="14" x2="12" y2="18" />
+											</svg>
+										</span>
+										<span class="m-l-5">new event</span>
+									</button>
+									<div id="newScheduleModal" class="modal dark">
+										<div class="modal-content b-rad-5 b-s-high">
+											<form id="newScheduleForm" action="/schedule/new" method="POST">
+												<div class="modal-head flex justify-b">
+													<h1 class="flex flex-col justify-c f-14 text-cap">schedule event</h1>
+													<div class="flex align-c">
+														<div class="btn-wrap" style="margin: 0 10px 0 0;">
+															<button type="submit" class="btn primary flex align-c head__foot__btn">
+																<span class="p-lr-5">Schedule</span>
+															</button>
+														</div>
+														<button type="button" id="closeNewSchedule" class="icon stroke" title="Close" style="width: 25px; height: 25px; background-color: transparent; border: none">
+															<svg xmlns="http://www.w3.org/2000/svg" style="stroke-width: 2.0;" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
+																<path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+																<line x1="18" y1="6" x2="6" y2="18" />
+																<line x1="6" y1="6" x2="18" y2="18" />
+															</svg>
+														</button>
+													</div>
+												</div>
+												<div class="modal-body custom-scroll">
+													<div class="modal-body__content flex justify-c">
+														<div class="form-body">
+															<div class="input-wrap">
+																<div class="form-input__wrap">
+																	<label class="form-input__label" data-required="true">
+																		<span>Event name</span>
+																		<input type="text" class="form-input text-cap" name="event_name" placeholder="Enter event name" required/>
+																	</label>
+																</div>
+															</div>
+															<div class="input-wrap">
+																<div class="form-input__wrap">
+																	<label class="form-input__label">
+																		<span>Event location</span>
+																		<input type="text" class="form-input text-cap" name="event_location" placeholder="Enter event location" />
+																	</label>
+																</div>
+															</div>
+															<div class="input-group-wrap">
+																<div class="input-wrap">
+																	<div class="form-input__wrap">
+																		<label class="form-input__label" data-required="true">
+																			<span>Event date</span>
+																			<input type="datetime-local" class="form-input text-cap" name="event_date" placeholder="Enter event date" required/>
+																		</label>
+																	</div>
+																</div>
+																<div class="input-wrap">
+																	<div class="form-input__wrap">
+																		<label class="form-input__label" data-required="true">
+																			<span>Event color</span>
+																			<select class="form-input" name="event_color" required>
+																				<option value="">Select color</option>
+																				<option value="#ffa500">Orange</option>
+																				<option value="#800080">Purple</option>
+																				<option value="#01a31c">Green</option>
+																				<option value="#c80000">Red</option>
+																				<option value="#d0cdcd">Grey</option>
+																				<option value="#fcc238">Yellow</option>
+																			</select>
+																		</label>
+																	</div>
+																</div>
+															</div>
+															<div class="input-wrap">
+																<div class="form-input__wrap">
+																	<label class="form-input__label">
+																		<span>Event description</span>
+																		<textarea class="form-input" name="event_desc" cols="30" rows="10" placeholder="Enter event description"></textarea>
+																	</label>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="modal-foot flex justify-e align-c">
+													<div class="btn-wrap" style="margin: 0;">
+														<button type="submit" class="btn primary flex align-c">
+															<span class="p-lr-5">Schedule</span>
+														</button>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+							<hr style="margin: 10px; border: 0; border-top: 1px solid var(--border-color);"/>
+							<div class="flex flex-col">
+								<div id="scheduleContainer" class="flex flex-flow p-tb-20">
+									
+								</div>
+							</div>
+                        </div>
+                    </div>
+                </section>
+			</div>
+		</section>
+		<script src="/static/schedule.chunk.js"></script>
+	</body>
+</html>

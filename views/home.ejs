@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Home | Event-Scheduler</title>
+        <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png">
+		<link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicons/favicon.ico">
+		<link rel="manifest" href="/assets/img/favicons/manifest.json">
+		<meta name="msapplication-TileImage" content="/assets/img/favicons/mstile-150x150.png">
+		<meta name="theme-color" content="#ffffff">
+        <link rel="stylesheet" href="/static/home.chunk.css" />
+        <!-- <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"> -->
+		<noscript>
+			<div class="no-script">
+				<p>
+					You appear to be using an outdated browser, or javascript is
+					disabled in your browser. Please upgrade to a modern browser or
+					enable javascript and refresh page.
+				</p>
+			</div>
+		</noscript>
+	</head>
+	<body>
+		<section>
+			<div class="content">
+				<%- include('./partials/nav.ejs'); %>
+				<%- include('./partials/sidebar.ejs'); %>
+				<section id="main-con">
+                    <div class="main-con__wrap flex flex-col p-lr-10">
+                        <div class="main-con__head"></div>
+                        <div class="main-con__content position-r">
+							<div class="flex flex-col">
+								<div id="eventContainer" class="flex flex-flow p-tb-20">
+									
+								</div>
+							</div>
+                        </div>
+                    </div>
+                </section>
+			</div>
+		</section>
+		<script src="/static/home.chunk.js"></script>
+	</body>
+</html>

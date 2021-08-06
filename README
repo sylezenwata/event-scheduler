@@ -1,0 +1,12 @@
+A quick guide to usage:
+
+1. Install modules
+   ==> npm install
+
+2. Run build
+   ==> npm build
+
+3. Start app
+   ==> npm start 
+   or 
+   ==> npm dev (for development)
